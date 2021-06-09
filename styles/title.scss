@@ -1,0 +1,10 @@
+.title {
+	text-align: center;
+
+	.title-underline {
+		height: 0.25rem;
+		width: 7rem;
+		background: $primaryColor;
+		margin: 0 auto;
+	}
+}
