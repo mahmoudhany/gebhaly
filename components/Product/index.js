@@ -4,7 +4,7 @@ import { FaCartPlus, FaEye } from 'react-icons/fa';
 import { ProductContext } from '../../context';
 
 const Product = ({ product }) => {
-  const { addToCart } = useContext(ProductContext);
+  const { addToCart, stock } = useContext(ProductContext);
 
   return (
     <div className="col-9 col-md-6 col-lg-3">
@@ -31,7 +31,7 @@ const Product = ({ product }) => {
           </div>
           <div className='bottom'>
             <p><span>Category:</span> {product.category}</p>
-            <p><span className="stock">In stock:</span> {3}</p>
+            <p><span className="stock">In stock:</span> {stock}</p>
           </div>
         </div>
       </div>

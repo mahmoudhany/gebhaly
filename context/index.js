@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const ProductContext = createContext();
 class ProductProvider extends Component {
+
   state = {
     storeProducts: [],
     cart: [],
@@ -14,6 +15,7 @@ class ProductProvider extends Component {
     price: 0,
     singleProduct: {},
     loading: false,
+    stock: 3
   }
 
   async componentDidMount() {
@@ -121,16 +123,22 @@ class ProductProvider extends Component {
   addToCart = (productId) => {
     let tempCart = [...this.state.cart]
     let tempProducts = [...this.state.storeProducts]
+
+    // check if item already in cart
     let tempItem = tempCart.find(item => item.id === productId)
 
     if (!tempItem) {
+      // add item to cart
       tempItem = tempProducts.find(item => item.id === productId)
       let total = tempItem.price
       let cartItem = { ...tempItem, count: 1, total }
       tempCart = [...tempCart, cartItem]
     } else {
-      tempItem.count++;
-      tempItem.total = parseFloat((tempItem.price * tempItem.count).toFixed(2))
+      // increase count item 
+      if (tempItem.count < this.state.stock) {
+        tempItem.count++;
+        tempItem.total = parseFloat((tempItem.price * tempItem.count).toFixed(2))
+      }
     }
 
     this.setState(() => {
@@ -145,14 +153,16 @@ class ProductProvider extends Component {
   increment = (id) => {
     let tempCart = [...this.state.cart]
     const cartItem = tempCart.find(item => item.id === id)
-    cartItem.count++;
-    cartItem.total = parseFloat((cartItem.count * cartItem.price).toFixed(2))
-    this.setState(() => (
-      { cart: [...tempCart] }
-    ), () => {
-      this.addTotals()
-      this.syncStorage()
-    })
+    if (cartItem.count < this.state.stock) {
+      cartItem.count++;
+      cartItem.total = parseFloat((cartItem.count * cartItem.price).toFixed(2))
+      this.setState(() => (
+        { cart: [...tempCart] }
+      ), () => {
+        this.addTotals()
+        this.syncStorage()
+      })
+    }
   }
 
   // decrement
