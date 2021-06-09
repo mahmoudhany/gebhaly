@@ -2,7 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ProductContext } from '../../../context';
+import Image from 'next/image'
 import LoadingGif from '../../../assets/loading.gif'
+import Loading from '../../../components/Loading';
 
 
 const product = () => {
@@ -20,9 +22,8 @@ const product = () => {
         <div className="row">
           {
             loading ?
-              <img src={LoadingGif}
-                style={{ width: 200, height: 200, objectFit: 'cover', margin: '0 auto' }}
-              /> :
+              <Loading />
+              :
               <>
                 <div className="col-10 mx-auto col-sm-8 col-md-6 my-3 img-wrapper">
                   <img src={image} alt="Product Image" />
