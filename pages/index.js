@@ -1,4 +1,4 @@
 import Products from '../components/Products';
 
-const home = () => <Products />;
-export default home;
+const Home = () => <Products />;
+export default Home;
