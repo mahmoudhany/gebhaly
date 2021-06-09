@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import React, { useContext } from 'react';
-import { FaSearch, FaCartPlus } from 'react-icons/fa';
+import { FaCartPlus, FaEye } from 'react-icons/fa';
 import { ProductContext } from '../../context';
 
 const Product = ({ product }) => {
@@ -14,18 +14,16 @@ const Product = ({ product }) => {
           <div className="product-icons">
             <button className="btn btn-success add"
               onClick={() => addToCart(product.id)}
-            >
-              <FaCartPlus />
+            ><FaCartPlus />
             </button>
             <button className="btn btn-warning"
               onClick={() => {
                 Router.push(`product/${product.id}`)
               }}
-            ><FaSearch />
+            ><FaEye />
             </button>
           </div>
         </div>
-
         <div className="card-body">
           <div className='top'>
             <p className="title text-truncate">{product.title}</p>

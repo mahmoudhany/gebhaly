@@ -18,10 +18,13 @@ class ProductProvider extends Component {
 
   async componentDidMount() {
     try {
+      this.setState({ loading: true })
       const products = await axios.get('https://fakestoreapi.com/products?limit=15')
       this.setProducts(products.data)
+      this.setState({ loading: false })
     } catch (error) {
       console.log(error.message);
+      this.setState({ loading: false })
     }
   }
 
@@ -32,6 +35,7 @@ class ProductProvider extends Component {
   }
 
   setProducts = async (products) => {
+    this.setState({ loading: true })
     const cart = await this.getCart()
     this.setState({
       storeProducts: products,
